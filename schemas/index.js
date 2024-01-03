@@ -65,7 +65,6 @@ const Mutation = new GraphQLObjectType({
             type: FolderType,
             args: {
                 name: {type: GraphQLString}
-
             },
             resolve(parent, args){
                 const next = getNextId(folderData)
@@ -75,6 +74,29 @@ const Mutation = new GraphQLObjectType({
                     chips: []
                 }
                 folderData.push(res)
+                return res;
+            }
+        },
+        deleteChip: {
+            type: FolderType,
+            args: {
+                folder_id: {type: GraphQLInt},
+                chip_id: {type: GraphQLInt},
+            },
+            resolve(parent, args){
+                const folderIndex = folderData.find(folder => folder.id === args.folder_id)
+                if (!folderIndex){
+                    throw new Error("folder does not exist")
+                }
+                const chipIndex = folderIndex.chips.findIndex(chip => chip.id === args.chip_id)
+                
+                if (chipIndex !== -1) {
+                    folderIndex.chips.splice(chipIndex, 1)
+                }
+                console.log(chipIndex)
+                res = {
+                    id: args.chip_id
+                }
                 return res;
             }
         }

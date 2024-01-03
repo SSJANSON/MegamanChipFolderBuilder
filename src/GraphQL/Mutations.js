@@ -30,3 +30,17 @@ export const CREATE_FOLDER = gql`
         }
     }
 `
+
+export const DELETE_CHIP = gql`
+    mutation deleteChip(
+        $folder_id: Int!
+        $chip_id: Int!
+    ){
+        deleteChip(
+            folder_id: $folder_id
+            chip_id: $chip_id
+        ){
+            id
+        }
+    }
+`

@@ -1,19 +1,22 @@
 import React from 'react';
-import { ADD_CHIP } from '../GraphQL/Mutations';
+import { ADD_CHIP, DELETE_CHIP } from '../GraphQL/Mutations';
 import { LOAD_FOLDERS } from '../GraphQL/Queries';
 import { useMutation, useQuery } from '@apollo/client';
 
 const ChipList = (props) => {
     const chips = props.chips;
     const id = props.id
+    const type = props.type
 
     const [addChip, { error }] = useMutation(ADD_CHIP)
+    const [deleteChip, {deleteError}] = useMutation(DELETE_CHIP)
     const {loading, data, refetch} = useQuery(LOAD_FOLDERS)
 
-    function handleAddCard(chip,id) {
+
+    function handleAddCard(folder_id,chip) {
         addChip({
             variables: {
-                folder_id: parseInt(id),
+                folder_id: parseInt(folder_id),
                 id: chip.id,
                 name: chip.name,
             }
@@ -23,6 +26,19 @@ const ChipList = (props) => {
             console.error('Error adding card:', error);
         });
     } 
+
+    function handleDeleteChip(folder_id, chip) {
+        deleteChip({
+            variables:{
+                folder_id: parseInt(folder_id),
+                chip_id: chip.id
+            }
+        }).then(response => {
+            refetch();
+        }).catch((deleteError) => {
+            console.error('Error deleting card:', deleteError);
+        });
+    }
 
     return (  
         <div className="chip-list">
@@ -34,7 +50,8 @@ const ChipList = (props) => {
                         <img src={ chip.image }></img>
                     </div>
                     <div className='chip-list-button'>
-                        <button value={chip} onClick={()=>handleAddCard(chip,id)}>Add</button>
+                        {type=="builder-chips" && <button value={chip} onClick={()=>handleAddCard(id,chip)}>Add</button>}
+                        {type=="folder-chips" && <button value={chip} onClick={()=>handleDeleteChip(id,chip)}>delete</button>}
                     </div>
                     
                 </div>
