@@ -20,7 +20,7 @@ function GetFolder(props) {
         <div>
             {folders.map((folder)=>{
                 if (folder.id == id){
-                    return <ChipList chips={folder.chips}/>
+                    return <ChipList chips={folder.chips} id={id}/>
                 }
             })}
         </div>       

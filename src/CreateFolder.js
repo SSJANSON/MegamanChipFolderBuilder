@@ -18,7 +18,6 @@ const CreateFolder = () => {
             }
         }).then(response => {
             const id = response.data.createFolder.id
-            console.log(id)
             history.push(`/folders/${id}`)
         }).catch((error) => {
             console.error('Error adding card:', error);

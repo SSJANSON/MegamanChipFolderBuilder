@@ -5,6 +5,7 @@ import { useMutation, useQuery } from '@apollo/client';
 
 const ChipList = (props) => {
     const chips = props.chips;
+    const id = props.id
 
     const [addChip, { error }] = useMutation(ADD_CHIP)
     const {loading, data, refetch} = useQuery(LOAD_FOLDERS)
@@ -12,12 +13,11 @@ const ChipList = (props) => {
     function handleAddCard(chip,id) {
         addChip({
             variables: {
-                folder_id: id,
+                folder_id: parseInt(id),
                 id: chip.id,
                 name: chip.name,
             }
         }).then(response => {
-            console.log(response.data.addChip.id)
             refetch();
         }).catch((error) => {
             console.error('Error adding card:', error);
@@ -34,7 +34,7 @@ const ChipList = (props) => {
                         <img src={ chip.image }></img>
                     </div>
                     <div className='chip-list-button'>
-                        <button value={chip} onClick={()=>handleAddCard(chip,1)}>Add</button>
+                        <button value={chip} onClick={()=>handleAddCard(chip,id)}>Add</button>
                     </div>
                     
                 </div>

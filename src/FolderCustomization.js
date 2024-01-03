@@ -5,7 +5,7 @@ import GetFolder from './Components/GetFolder';
 
 const FolderCustomization = () => {
     const { id } = useParams()
-
+    console.log(id)
 
 
     return (  
@@ -19,7 +19,7 @@ const FolderCustomization = () => {
                 </div>
                 <div className="chips">
                     <h1>Your Chips</h1>
-                    <GetChips />
+                    <GetChips id={id} />
                 </div>
             </div>
             

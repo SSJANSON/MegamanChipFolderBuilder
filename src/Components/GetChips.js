@@ -3,7 +3,9 @@ import { useQuery, gql } from '@apollo/client'
 import { LOAD_CHIPS } from '../GraphQL/Queries'
 import ChipList from './ChipList'
 
-function GetChips() {
+function GetChips(props) {
+
+    const id = props.id;
 
     const {error, loading, data} = useQuery(LOAD_CHIPS)
     const [chips, setChips] = useState([])
@@ -19,7 +21,7 @@ function GetChips() {
         //         return <h1>{val.id}</h1>
         //     })}
         // </div>
-        <ChipList chips={chips}/>
+        <ChipList chips={chips} id={id}/>
     );
 }
  
