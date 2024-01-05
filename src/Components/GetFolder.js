@@ -20,16 +20,16 @@ function GetFolder(props) {
     return (
         <div>
             {folders.map((folder)=>{
-                if (folder.id === id){
-                    console.log(folder)
+                if (folder.id === parseInt(id)){
                     const chipList = []
                     folder.chips.map((folder_chip)=>{
-                        const current = chips.find(chip => chip.id === folder_chip.id)
-                        console.log(current)
-                        chipList.push(current)
+                        const chipDetails = chips.find(chip => chip.chip_id === folder_chip.chip_id)
+                        const currentId = {id: folder_chip.id}
+                        const newChipDetails = {...chipDetails, ...currentId}
+                        chipList.push(newChipDetails)
                     })
-                    console.log(chipList)
-                    return <ChipList chips={folder.chips} id={id} type={"folder-chips"}/>
+                    
+                    return <ChipList chips={chipList} id={id} type={"folder-chips"}/>
                 }
             })}
         </div>       

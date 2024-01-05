@@ -7,7 +7,6 @@ import { useQuery } from '@apollo/client';
 
 const FolderCustomization = () => {
     const { id } = useParams()
-    console.log(id)
 
     const {error, loading, data} = useQuery(LOAD_CHIPS)
 
