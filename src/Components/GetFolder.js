@@ -12,7 +12,6 @@ function GetFolder(props) {
 
     useEffect(() => {
         if (data) {
-            console.log(id)
             setFolders(data.getAllFolders)
         }
     }, [data])
