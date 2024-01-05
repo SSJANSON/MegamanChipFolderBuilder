@@ -17,7 +17,7 @@ const ChipList = (props) => {
         addChip({
             variables: {
                 folder_id: parseInt(folder_id),
-                id: chip.id,
+                chip_id: chip.chip_id,
                 name: chip.name,
             }
         }).then(response => {
@@ -28,10 +28,13 @@ const ChipList = (props) => {
     } 
 
     function handleDeleteChip(folder_id, chip) {
+        console.log(chip.id)
+        console.log(chip.chip_id)
         deleteChip({
             variables:{
                 folder_id: parseInt(folder_id),
-                chip_id: chip.id
+                chip_id: chip.chip_id,
+                id: chip.id
             }
         }).then(response => {
             refetch();
@@ -46,7 +49,7 @@ const ChipList = (props) => {
                 return <div className='chip-list-chips'>
                     <div className='chip-list-info'>
                         <h1>{ chip.name }</h1>
-                        <p>{ chip.id }</p>
+                        <p>{ chip.chip_id }</p>
                         <img src={ chip.image }></img>
                     </div>
                     <div className='chip-list-button'>

@@ -24,14 +24,14 @@ const RootQuery = new GraphQLObjectType({
     fields: {
         getAllChips:{
             type: new GraphQLList(ChipType),
-            args: { id: {type: GraphQLInt}},
+            args: { chip_id: {type: GraphQLInt}},
             resolve(parent,args){
                 return chipData
             }
         },
         getAllFolders:{
             type: new GraphQLList(FolderType),
-            args: { id: {type: GraphQLInt}},
+            args: { chip_id: {type: GraphQLInt}},
             resolve(parent,args){
                 return folderData
             }
@@ -46,7 +46,7 @@ const Mutation = new GraphQLObjectType({
             type: ChipType,
             args: {
                 folder_id: {type: GraphQLInt},
-                id: {type: GraphQLInt},
+                chip_id: {type: GraphQLInt},
                 name: {type: GraphQLString}
             },
             resolve(parent, args){
@@ -54,11 +54,19 @@ const Mutation = new GraphQLObjectType({
                 if (!folderIndex){
                     throw new Error("folder does not exist")
                 }
-                folderIndex.chips.push({
-                    id: args.id,
+                const maxId = folderIndex.chips.reduce(
+                    (max, curr) => curr.id < max ? max : curr.id,
+                    0,
+                );
+
+                res = {
+                    id : maxId +1,
+                    chip_id: args.chip_id,
                     name: args.name
-                })
-                return args;
+                }
+
+                folderIndex.chips.push(res)
+                return res;
             }
         },
         createFolder: {
@@ -82,18 +90,18 @@ const Mutation = new GraphQLObjectType({
             args: {
                 folder_id: {type: GraphQLInt},
                 chip_id: {type: GraphQLInt},
+                id: {type: GraphQLInt}
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
                 if (!folderIndex){
                     throw new Error("folder does not exist")
                 }
-                const chipIndex = folderIndex.chips.findIndex(chip => chip.id === args.chip_id)
+                const chipIndex = folderIndex.chips.findIndex(chip => chip.id === args.id)
                 
                 if (chipIndex !== -1) {
                     folderIndex.chips.splice(chipIndex, 1)
                 }
-                console.log(chipIndex)
                 res = {
                     id: args.chip_id
                 }
