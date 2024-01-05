@@ -28,8 +28,6 @@ const ChipList = (props) => {
     } 
 
     function handleDeleteChip(folder_id, chip) {
-        console.log(chip.id)
-        console.log(chip.chip_id)
         deleteChip({
             variables:{
                 folder_id: parseInt(folder_id),
@@ -42,7 +40,7 @@ const ChipList = (props) => {
             console.error('Error deleting card:', deleteError);
         });
     }
-
+    
     return (  
         <div className="chip-list">
             {chips.map((chip)=>{

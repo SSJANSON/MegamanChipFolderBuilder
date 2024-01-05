@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { useQuery } from '@apollo/client'
-import { LOAD_CHIPS } from '../GraphQL/Queries'
 import ChipList from './ChipList'
 
 function GetChips(props) {
 
     const id = props.id;
-
-    const {error, loading, data} = useQuery(LOAD_CHIPS)
-
-
-    const [chips, setChips] = useState([])
-    useEffect(() => {
-        if (data) {
-            setChips(data.getAllChips)
-        }
-    }, [data])
+    const chips = props.chips;
+    
 
     return (
         // <div>
