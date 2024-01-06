@@ -1,9 +1,11 @@
-import GetChips from "./Components/GetChips";
+import GetAllFolders from "./Components/GetAllFolders";
 
 const Home = () => {
     return (
         <div className="home">
-            <h2>Homepage</h2>
+            <h1>Megaman Chip Folder Builder</h1>
+            <h2>Your Folders</h2>
+            <GetAllFolders/>
         </div>
     );
 }
