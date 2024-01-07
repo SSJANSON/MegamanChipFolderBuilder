@@ -5,7 +5,12 @@ export const LOAD_CHIPS = gql`
         getAllChips {
             chip_id
             name
-            image
+            type
+            damage
+            description
+            letter
+            category
+            mb
         }
     }
 `
@@ -19,7 +24,7 @@ export const LOAD_FOLDERS = gql`
                 id
                 chip_id
                 name
-                image
+                letter
             }
         }
     }

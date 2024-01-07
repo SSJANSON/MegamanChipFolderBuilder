@@ -9,14 +9,15 @@ const {
 const ChipType = new GraphQLObjectType({
     name: "Chip",
     fields: () => ({
-        id: {type: GraphQLInt },
-        chip_id: {type: GraphQLInt },
+        id: { type: GraphQLInt },
+        chip_id: { type: GraphQLInt },
         name: { type: GraphQLString },
         type: { type: GraphQLString },
         damage: {type: GraphQLInt },
         description: { type: GraphQLString },
         letter: { type: GraphQLString },
-        image: { type: GraphQLString }
+        category: { type: GraphQLString },
+        mb: { type: GraphQLInt }
 
 
     })

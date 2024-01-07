@@ -39,17 +39,44 @@
 }
 
 .chips {
-  width: 50%;
+  width: 40%;
+}
+
+.details {
+  width: 20%;
+}
+
+.chip-list img {
+  width: 15%;
 }
 
 .chip-list-chips{
   display: flex;
+  padding: 1%;
+  max-height: 30px;
 }
 
+.chip-list-name{
+  width: 55%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.chip-list-info img{
+  height: 100%;
+  width: auto;
+  float: left;
+}
+.chip-list-letter{
+  float: left;
+}
+
+
 .chip-list-info{
-  width: 80%;
+  width: 25%;
+  padding: 2px;
 }
 
 .chip-list-buttons{
-  width: 20%;
+  width: 5%;
 }

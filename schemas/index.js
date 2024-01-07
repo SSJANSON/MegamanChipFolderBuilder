@@ -47,7 +47,8 @@ const Mutation = new GraphQLObjectType({
             args: {
                 folder_id: {type: GraphQLInt},
                 chip_id: {type: GraphQLInt},
-                name: {type: GraphQLString}
+                name: {type: GraphQLString},
+                letter: {type: GraphQLString},
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
@@ -62,7 +63,8 @@ const Mutation = new GraphQLObjectType({
                 res = {
                     id : maxId +1,
                     chip_id: args.chip_id,
-                    name: args.name
+                    name: args.name,
+                    letter: args.letter,
                 }
 
                 folderIndex.chips.push(res)

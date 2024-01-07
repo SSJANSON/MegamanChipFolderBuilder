@@ -19,6 +19,7 @@ const ChipList = (props) => {
                 folder_id: parseInt(folder_id),
                 chip_id: chip.chip_id,
                 name: chip.name,
+                letter: chip.letter
             }
         }).then(response => {
             refetch();
@@ -40,19 +41,29 @@ const ChipList = (props) => {
             console.error('Error deleting card:', deleteError);
         });
     }
-    
+
     return (  
         <div className="chip-list">
             {chips.map((chip)=>{
                 return <div className='chip-list-chips'>
-                    <div className='chip-list-info'>
-                        <h1>{ chip.name }</h1>
-                        <p>{ chip.chip_id }</p>
-                        <img src={ chip.image }></img>
+                    <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}.png`} alt="image"></img>
+                    <h2 className="chip-list-name">{ chip.name }</h2>
+                    <div className='chip-list-info'> 
+                        
+                        <img className='chip-list-type' src={`/Images/Type/${chip.type}.webp`} alt="image"></img>
+                        <h2 className="chip-list-letter">{ chip.letter }</h2>
+                        
                     </div>
+                    
+
+                    {/* <div className='chip-list-info'>
+                        <h2 className="chip-list-name">{ chip.name }</h2>
+                        <img className='type' src={`/Images/Type/${chip.type}.webp`} alt="image"></img>
+                        <h2 className="letter">{ chip.letter }</h2>
+                    </div> */}
                     <div className='chip-list-button'>
-                        {type=="builder-chips" && <button value={chip} onClick={()=>handleAddCard(id,chip)}>Add</button>}
-                        {type=="folder-chips" && <button value={chip} onClick={()=>handleDeleteChip(id,chip)}>delete</button>}
+                        {type=="builder-chips" && <button value={chip} onClick={()=>handleAddCard(id,chip)}>+</button>}
+                        {type=="folder-chips" && <button value={chip} onClick={()=>handleDeleteChip(id,chip)}>-</button>}
                     </div>
                     
                 </div>
