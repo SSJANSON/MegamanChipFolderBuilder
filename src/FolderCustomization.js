@@ -4,6 +4,8 @@ import GetChips from './Components/GetChips';
 import GetFolder from './Components/GetFolder';
 import { LOAD_CHIPS } from './GraphQL/Queries';
 import { useQuery } from '@apollo/client';
+import ChipDetails from './Components/ChipDetails';
+
 
 const FolderCustomization = () => {
     const { id } = useParams()
@@ -29,6 +31,10 @@ const FolderCustomization = () => {
                 <div className="chips">
                     <h1>Your Chips</h1>
                     <GetChips id={id} chips={chips}/>
+                </div>
+                <div className="chip-details" >
+                    <h1>Chip Details</h1>
+                    <ChipDetails id={id} chips={chips}/>
                 </div>
             </div>
             
