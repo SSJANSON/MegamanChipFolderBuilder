@@ -17,7 +17,8 @@ const ChipType = new GraphQLObjectType({
         description: { type: GraphQLString },
         letter: { type: GraphQLString },
         category: { type: GraphQLString },
-        mb: { type: GraphQLInt }
+        mb: { type: GraphQLInt },
+        location: { type: GraphQLString }
 
 
     })

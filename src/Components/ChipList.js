@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ADD_CHIP, DELETE_CHIP } from '../GraphQL/Mutations';
 import { LOAD_FOLDERS } from '../GraphQL/Queries';
 import { useMutation, useQuery } from '@apollo/client';
@@ -45,8 +45,8 @@ const ChipList = (props) => {
     return (  
         <div className="chip-list">
             {chips.map((chip)=>{
-                return <div className='chip-list-chips'>
-                    <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}.png`} alt="image"></img>
+                return <div className='chip-list-chips' onClick={() => props.handleChange({id: chip.chip_id, letter: chip.letter})}>
+                    <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}.webp`} alt="image"></img>
                     <h2 className="chip-list-name">{ chip.name } </h2>
                     <div className='chip-list-info'> 
                         
@@ -55,9 +55,6 @@ const ChipList = (props) => {
                         <p className="chip-list-letter">{ chip.mb }</p>
                         
                     </div>
-                    
-
-                    
                     <div className='chip-list-button'>
                         {type=="builder-chips" && <button value={chip} onClick={()=>handleAddCard(id,chip)}>+</button>}
                         {type=="folder-chips" && <button value={chip} onClick={()=>handleDeleteChip(id,chip)}>-</button>}

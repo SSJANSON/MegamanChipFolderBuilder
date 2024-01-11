@@ -11,6 +11,7 @@ export const LOAD_CHIPS = gql`
             letter
             category
             mb
+            location
         }
     }
 `

@@ -14,7 +14,7 @@ function GetChips(props) {
         //     })}
         // </div>
 
-        <ChipList chips={chips} id={id} type={"builder-chips"}/>
+        <ChipList chips={chips} id={id} type={"builder-chips"} handleChange={props.handleChange}/>
 
         // <div className="chip-list">
         //     {chips.map((chip)=>{

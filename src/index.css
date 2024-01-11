@@ -91,7 +91,9 @@
 .chip-list-buttons{
   width: 5%;
 }
-
+.chip-info-title{
+  height:35px
+}
 .chip-info {
   height:403px;
   width: 240px
