@@ -42,8 +42,9 @@ const ChipList = (props) => {
         });
     }
 
-    return (  
-        <div className="chip-list">
+    return ( 
+        <div style={{height: "425px", overflowY: "scroll", flexDirection: "column-reverse", overflowAnchor: "auto"}}>
+            <div className="chip-list">
             {chips.map((chip)=>{
                 return <div className='chip-list-chips' onClick={() => props.handleChange({id: chip.chip_id, letter: chip.letter})}>
                     <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}.webp`} alt="image"></img>
@@ -61,8 +62,12 @@ const ChipList = (props) => {
                     </div>
                     
                 </div>
-            })}
+        })}
+    </div>
+
         </div>
+        
+    
     );
 }
  
