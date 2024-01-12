@@ -34,11 +34,7 @@ const ChipDetails = (props) => {
                         <h2 style={{marginTop: "10px", fontSize: 14}}>Location: { currentChip.location }</h2>
                     </div>
                 </div>}
-                
-                
-                
             </div>
-
         </div>
     
     
