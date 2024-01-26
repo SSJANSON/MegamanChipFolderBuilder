@@ -14,7 +14,7 @@ function GetChips(props) {
         //     })}
         // </div>
 
-        <ChipList chips={chips} id={id} type={"builder-chips"} handleChange={props.handleChange}/>
+        <ChipList chips={chips} id={id} type={"builder-chips"} handleChange={props.handleChange} setOpen={props.setOpen} setErrorMessage={props.setErrorMessage}/>
 
         // <div className="chip-list">
         //     {chips.map((chip)=>{

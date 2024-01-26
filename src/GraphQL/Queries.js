@@ -21,6 +21,10 @@ export const LOAD_FOLDERS = gql`
         getAllFolders {
             id
             name
+            counter{
+                name
+                count
+            }
             chips{
                 id
                 chip_id

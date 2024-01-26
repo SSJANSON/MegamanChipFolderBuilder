@@ -5,7 +5,7 @@ import GetFolder from './Components/GetFolder';
 import { LOAD_CHIPS } from './GraphQL/Queries';
 import { useQuery } from '@apollo/client';
 import ChipDetails from './Components/ChipDetails';
-
+import {Popup} from 'reactjs-popup';
 
 const FolderCustomization = () => {
     const { id } = useParams()
@@ -14,6 +14,8 @@ const FolderCustomization = () => {
 
     const [chips, setChips] = useState([])
     const [detail, setDetail] = useState({id:1, letter:"A"})
+    const [open, setOpen] = useState(false)
+    const [errorMessage, setErrorMessage] = useState("")
     
     useEffect(() => {
         if (data) {
@@ -33,16 +35,30 @@ const FolderCustomization = () => {
             <div className="customization">
                 <div className="chips">
                     <h1>Your Folder</h1>
-                        <GetFolder id={id} chips={chips} handleChange={handleChange}/>
+                        <GetFolder id={id} chips={chips} handleChange={handleChange} setErrorMessage={setErrorMessage}/>
                 </div>
                 <div className="chips">
                     <h1>Your Chips</h1>
-                    <GetChips id={id} chips={chips} handleChange={handleChange}/>
+                    <GetChips id={id} chips={chips} handleChange={handleChange} setOpen={setOpen} setErrorMessage={setErrorMessage}/>
                 </div>
                 <div className="chip-details" >
                     <ChipDetails id={id} chips={chips} detail={detail}/>
                 </div>
             </div>
+            <Popup open={open} modal>
+            {() => ( 
+              <div className='error-popup'>
+                <h1>Error</h1>
+                <h2>{ errorMessage }</h2>
+                <div className='error-popup-button'>
+                    <button onClick={() => setOpen(false)}>
+                    close
+                    </button>
+                </div>
+                
+              </div>
+            )}
+          </Popup>
             
         </div>
     );

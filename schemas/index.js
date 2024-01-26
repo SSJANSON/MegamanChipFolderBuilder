@@ -49,9 +49,15 @@ const Mutation = new GraphQLObjectType({
                 chip_id: {type: GraphQLInt},
                 name: {type: GraphQLString},
                 letter: {type: GraphQLString},
+                mb: {type: GraphQLInt},
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
+                const sum = folderIndex.counter.reduce((acc, o) => acc + parseInt(o.count), 0)
+
+                if (sum === 30){
+                    throw new Error("max number of chips")
+                }
                 if (!folderIndex){
                     throw new Error("folder does not exist")
                 }
@@ -59,12 +65,27 @@ const Mutation = new GraphQLObjectType({
                     (max, curr) => curr.id < max ? max : curr.id,
                     0,
                 );
-
                 res = {
                     id : maxId +1,
                     chip_id: args.chip_id,
                     name: args.name,
                     letter: args.letter,
+                }
+
+                const counterIndex = folderIndex.counter.find(elem => elem.name === args.name)
+                if(counterIndex === undefined){
+                    folderIndex.counter.push({name: args.name, count: 1})
+                } else {
+                    if ((args.mb < 20 && counterIndex.count < 5)
+                        ||(args.mb >= 20 && args.mb < 30 && counterIndex.count < 4)
+                        ||(args.mb >= 30 && args.mb < 40 && counterIndex.count < 3)
+                        ||(args.mb >= 40 && args.mb < 50 && counterIndex.count < 2)
+                        ||(args.mb > 50 && counterIndex.count < 1)
+                    ) {
+                        counterIndex.count = counterIndex.count + 1
+                    } else {
+                        throw new Error("max number of copies")
+                    }
                 }
 
                 folderIndex.chips.push(res)
@@ -92,7 +113,8 @@ const Mutation = new GraphQLObjectType({
             args: {
                 folder_id: {type: GraphQLInt},
                 chip_id: {type: GraphQLInt},
-                id: {type: GraphQLInt}
+                id: {type: GraphQLInt},
+                name: {type: GraphQLString},
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
@@ -104,9 +126,19 @@ const Mutation = new GraphQLObjectType({
                 if (chipIndex !== -1) {
                     folderIndex.chips.splice(chipIndex, 1)
                 }
+                
+                const counterIndex = folderIndex.counter.find(elem => elem.name === args.name)
+                if(counterIndex.count === 1){
+                    const index = folderIndex.counter.findIndex(elem => elem.name === args.name)
+                    folderIndex.counter.splice(index,1)
+                } else {
+                    counterIndex.count = counterIndex.count -1
+                }
+
                 res = {
                     id: args.chip_id
                 }
+
                 return res;
             }
         }
