@@ -41,11 +41,13 @@ export const DELETE_CHIP = gql`
         $folder_id: Int!
         $chip_id: Int!
         $id: Int!
+        $name: String!
     ){
         deleteChip(
             folder_id: $folder_id
             chip_id: $chip_id
             id: $id
+            name: $name
         ){
             id
         }

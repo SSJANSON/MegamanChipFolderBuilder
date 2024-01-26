@@ -84,7 +84,7 @@ const Mutation = new GraphQLObjectType({
                     ) {
                         counterIndex.count = counterIndex.count + 1
                     } else {
-                        throw new Error("max capacity")
+                        throw new Error("max number of copies")
                     }
                 }
 
@@ -113,7 +113,8 @@ const Mutation = new GraphQLObjectType({
             args: {
                 folder_id: {type: GraphQLInt},
                 chip_id: {type: GraphQLInt},
-                id: {type: GraphQLInt}
+                id: {type: GraphQLInt},
+                name: {type: GraphQLString},
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
@@ -125,9 +126,19 @@ const Mutation = new GraphQLObjectType({
                 if (chipIndex !== -1) {
                     folderIndex.chips.splice(chipIndex, 1)
                 }
+                
+                const counterIndex = folderIndex.counter.find(elem => elem.name === args.name)
+                if(counterIndex.count === 1){
+                    const index = folderIndex.counter.findIndex(elem => elem.name === args.name)
+                    folderIndex.counter.splice(index,1)
+                } else {
+                    counterIndex.count = counterIndex.count -1
+                }
+
                 res = {
                     id: args.chip_id
                 }
+
                 return res;
             }
         }

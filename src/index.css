@@ -146,4 +146,30 @@
   margin: 13px;
 }
 
+.error-popup{
+  height: 120px;
+  width: 300px;
+  border: 1px solid grey;
+  border-radius: 5px;
+  background-color: rgb(242, 240, 240);
+  position: relative;
+}
+
+.error-popup h1{
+  text-align: center;
+}
+
+.error-popup h2{
+  text-align: center;
+}
+
+.error-popup-button {
+  margin: 0;
+  position: absolute;
+  top: 75%;
+  left: 50%;
+  -ms-transform: translate(-75%, -50%);
+  transform: translate(-75%, -50%);
+}
+
 

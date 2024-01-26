@@ -29,7 +29,7 @@ function GetFolder(props) {
                         chipList.push(newChipDetails)
                     })
                     
-                    return <ChipList chips={chipList} id={id} type={"folder-chips"} handleChange={props.handleChange}/>
+                    return <ChipList chips={chipList} id={id} type={"folder-chips"} handleChange={props.handleChange} setErrorMessage={props.setErrorMessage}/>
                 }
             })}
         </div>       

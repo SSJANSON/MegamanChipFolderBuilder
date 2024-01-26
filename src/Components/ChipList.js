@@ -26,9 +26,9 @@ const ChipList = (props) => {
             console.log(response)
             refetch();
         }).catch((error) => {
-            if (error.message === "max number of chips"){
-                console.error("hi")
-            }
+            props.setOpen(true)
+            props.setErrorMessage(error.message)
+
 
             console.error('Error adding card:', error);
         });
@@ -39,7 +39,8 @@ const ChipList = (props) => {
             variables:{
                 folder_id: parseInt(folder_id),
                 chip_id: chip.chip_id,
-                id: chip.id
+                id: chip.id,
+                name: chip.name
             }
         }).then(response => {
             refetch();
