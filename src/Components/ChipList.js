@@ -23,7 +23,6 @@ const ChipList = (props) => {
                 mb: chip.mb
             }
         }).then(response => {
-            console.log(response)
             refetch();
         }).catch((error) => {
             props.setOpen(true)

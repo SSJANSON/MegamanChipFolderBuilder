@@ -31,7 +31,6 @@
 .content {
   max-width: 825px;
   margin: 40px auto;
-  padding: 20px;
   max-height: 100vh;
 }
 
@@ -170,6 +169,10 @@
   left: 50%;
   -ms-transform: translate(-75%, -50%);
   transform: translate(-75%, -50%);
+}
+
+.letter-sort{
+  display: flex;
 }
 
 
