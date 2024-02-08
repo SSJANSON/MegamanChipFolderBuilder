@@ -15,7 +15,7 @@ const FolderCustomization = () => {
 
     const [chips, setChips] = useState([])
     const [sortedChips, setSortedChips] = useState([])
-    const [detail, setDetail] = useState({id:1, letter:"A"})
+    const [detail, setDetail] = useState({name:"Cannon", letter:"A"})
     const [open, setOpen] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     
@@ -28,7 +28,7 @@ const FolderCustomization = () => {
 
 
     const handleChange = (chip) => {
-        setDetail({id: chip.id, letter: chip.letter});
+        setDetail({name: chip.name, letter: chip.letter});
     };
 
     const letter_filters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','*']

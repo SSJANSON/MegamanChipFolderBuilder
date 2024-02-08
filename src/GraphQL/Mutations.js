@@ -8,6 +8,7 @@ export const ADD_CHIP = gql`
         $name: String! 
         $letter: String!
         $mb: Int! 
+        $category: String!
     ) {
     addChip(
         folder_id: $folder_id
@@ -15,6 +16,7 @@ export const ADD_CHIP = gql`
         name: $name
         letter: $letter
         mb: $mb
+        category: $category
         ) {
             id
             name
