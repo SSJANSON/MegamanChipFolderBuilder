@@ -25,6 +25,7 @@ export const LOAD_FOLDERS = gql`
             counter{
                 name
                 count
+                category
             }
             chips{
                 id

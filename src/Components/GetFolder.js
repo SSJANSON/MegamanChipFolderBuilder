@@ -23,7 +23,7 @@ function GetFolder(props) {
                 if (folder.id === parseInt(id)){
                     const chipList = []
                     folder.chips.map((folder_chip)=>{
-                        const chipDetails = chips.find(chip => ((chip.chip_id === folder_chip.chip_id) && (chip.letter === folder_chip.letter)))
+                        const chipDetails = chips.find(chip => ((chip.name === folder_chip.name) && (chip.letter === folder_chip.letter)))
                         const currentId = {id: folder_chip.id}
                         const newChipDetails = {...chipDetails, ...currentId}
                         chipList.push(newChipDetails)

@@ -20,7 +20,8 @@ const ChipList = (props) => {
                 chip_id: chip.chip_id,
                 name: chip.name,
                 letter: chip.letter,
-                mb: chip.mb
+                mb: chip.mb,
+                category: chip.category
             }
         }).then(response => {
             refetch();
@@ -52,8 +53,11 @@ const ChipList = (props) => {
         <div style={{height: "425px", overflowY: "scroll", flexDirection: "column-reverse", overflowAnchor: "auto"}}>
             <div className="chip-list">
             {chips.map((chip)=>{
-                return <div className='chip-list-chips' onClick={() => props.handleChange({id: chip.chip_id, letter: chip.letter})}>
-                    <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}.webp`} alt="image"/>
+                // console.log(chip.category)
+                // console.log(chip.chip_id)
+                // console.log(chip.ver)
+                return <div className='chip-list-chips' onClick={() => props.handleChange({name: chip.name, letter: chip.letter})}>
+                    <img src={`/Images/MMBN6/${chip.category}${chip.chip_id}${chip.ver}.webp`} alt="image"/>
                     <h2 className="chip-list-name">{ chip.name } </h2>
                     <div className='chip-list-info'> 
                         

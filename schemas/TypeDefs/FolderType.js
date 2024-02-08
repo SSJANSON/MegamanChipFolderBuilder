@@ -22,6 +22,7 @@ const CounterType = new GraphQLObjectType({
     name: "Counter",
     fields: () => ({
         name: { type: GraphQLString },
+        category: { type: GraphQLString },
         count: { type: GraphQLInt },
     })
 })

@@ -50,13 +50,24 @@ const Mutation = new GraphQLObjectType({
                 name: {type: GraphQLString},
                 letter: {type: GraphQLString},
                 mb: {type: GraphQLInt},
+                category: {type: GraphQLString},
             },
             resolve(parent, args){
                 const folderIndex = folderData.find(folder => folder.id === args.folder_id)
                 const sum = folderIndex.counter.reduce((acc, o) => acc + parseInt(o.count), 0)
+                
+                const sumMega = folderIndex.counter.reduce((acc, o) => {if (o.category=="M") acc = acc + parseInt(o.count);return acc}, 0)
+                const sumGiga = folderIndex.counter.reduce((acc, o) => {if (o.category=="G") acc = acc + parseInt(o.count);return acc}, 0)
+                
 
                 if (sum === 30){
                     throw new Error("max number of chips")
+                }
+                if (sumMega === 5 && args.category === "M"){
+                    throw new Error("max number of mega chips")
+                }
+                if (sumGiga === 1 && args.category === "G"){
+                    throw new Error("max number of Giga chips")
                 }
                 if (!folderIndex){
                     throw new Error("folder does not exist")
@@ -74,7 +85,7 @@ const Mutation = new GraphQLObjectType({
 
                 const counterIndex = folderIndex.counter.find(elem => elem.name === args.name)
                 if(counterIndex === undefined){
-                    folderIndex.counter.push({name: args.name, count: 1})
+                    folderIndex.counter.push({name: args.name, category: args.category, count: 1})
                 } else {
                     if ((args.mb < 20 && counterIndex.count < 5)
                         ||(args.mb >= 20 && args.mb < 30 && counterIndex.count < 4)
