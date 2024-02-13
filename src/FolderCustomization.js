@@ -31,24 +31,59 @@ const FolderCustomization = () => {
         setDetail({name: chip.name, letter: chip.letter});
     };
 
-    const letter_filters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','*']
+    const filters = [['ID', 'ABCDE', 'Code', 'Attack', 'Element', 'MB'], ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z','*'],["Standard", "Mega", "Giga"]]
+    const [checkedStateOrder, setCheckedStateOrder] = useState('ID')
     const [checkedStateLetter, setCheckedStateLetter] = useState(
-        new Array(letter_filters.length).fill(false)
+        new Array(filters[1].length).fill(false)
     )
+    const [checkedStateCategory, setCheckedStateCategory] = useState(
+        new Array(filters[2].length).fill(false)
+    )
+    
+    function onChangeOrder(event){
+        setCheckedStateOrder(event.target.value)
+        console.log(event.target.value)
+    }
+
     const handleLetterChange = (position) => {
         const updatedCheckedState = checkedStateLetter.map((item, index) =>
           index === position ? !item : item
         )
         setCheckedStateLetter(updatedCheckedState)
     }
+    
+    const handleCategoryChange = (position) => {
+        const updatedCheckedState = checkedStateCategory.map((item, index) =>
+          index === position ? !item : item
+        )
+        setCheckedStateCategory(updatedCheckedState)
+    }
 
+    
     useEffect(() => {
+        var orderedChips = []
+        var arrayForSort = [...chips]
+        if (checkedStateOrder === "ID"){
+            orderedChips = arrayForSort
+        } else if (checkedStateOrder === "ABCDE"){
+            orderedChips = arrayForSort.sort(function(a, b) {if (a.name < b.name) {return -1} if (a.name > b.name) {return 1} return 0}); 
+        } else if (checkedStateOrder === "Code"){
+            orderedChips = arrayForSort.sort(function(a, b) {if (a.letter < b.letter) {return -1} if (a.letter > b.letter) {return 1} return 0}); 
+        } else if (checkedStateOrder === "Attack"){
+            orderedChips = arrayForSort.sort((a, b) => b.damage-a.damage); 
+        } else if (checkedStateOrder === "Element"){
+            orderedChips = arrayForSort.sort(function(a, b) {if (a.type < b.type) {return -1} if (a.type > b.type) {return 1} return 0}); 
+        } else if (checkedStateOrder === "MB"){
+            orderedChips = arrayForSort.sort((a, b) => b.mb-a.mb); 
+        }
+        
+
         if (checkedStateLetter.every(v => v === false)){
-            setSortedChips(chips)
+            setSortedChips(orderedChips)
         }else{
             const alphaVal = (s) => s.toLowerCase().charCodeAt(0) - 97
             const temp = []
-            chips.map((chip) => {
+            orderedChips.map((chip) => {
                 if (((chip.letter === '*') && (checkedStateLetter[26]===true)) || (checkedStateLetter[alphaVal(chip.letter)] === true)) {
                     temp.push(chip) 
                 }
@@ -58,14 +93,14 @@ const FolderCustomization = () => {
         }
         
 
-    }, [checkedStateLetter])
+    }, [checkedStateOrder,checkedStateLetter, checkedStateCategory])
 
     return (  
         
         <div className="folder-customization">
             
             <h2>Folder Customization - { id }</h2>
-            <SortBar letter_filters={letter_filters} checkedStateLetter={checkedStateLetter} handleLetterChange={handleLetterChange}/>
+            <SortBar filters={filters} checkedState={[checkedStateOrder,checkedStateLetter,checkedStateCategory]} handleLetterChange={handleLetterChange} handleCategoryChange={handleCategoryChange} onChangeOrder={onChangeOrder}/>
             <div className="customization">
                 <div className="chips">
                     <h1>Your Chips</h1>
