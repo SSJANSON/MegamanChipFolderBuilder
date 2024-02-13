@@ -175,4 +175,11 @@
   display: flex;
 }
 
+.category-sort{
+  display: flex;
+}
+
+.order-sort{
+  display: flex;
+}
 

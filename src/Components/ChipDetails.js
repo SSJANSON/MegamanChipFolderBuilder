@@ -26,7 +26,7 @@ const ChipDetails = (props) => {
                         <h2 className='chip-info-1-letter'>{ currentChip.letter }</h2>
                         <img src={`/Images/Type/${currentChip.type}.webp`} alt="image"></img>
                         <div className='chip-info-1-damage'>
-                            <h2>{ currentChip.damage }</h2>
+                            <h2>{currentChip.damage!=0 && currentChip.damage }</h2>
                         </div>
                     </div>
                     <div className='chip-info-2'>
